@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management</title>
+    <style>
+      /* General body and page styling */
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f8ff; /* Light background color */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      /* Main container to hold everything */
+      .main-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        width: 100%;
+        padding: 20px;
+      }
+
+      /* Individual section container for each form */
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 30%;
+        min-width: 280px; /* Ensures the sections are not too narrow */
+      }
+
+      /* Input field styling */
+      input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      input[type="text"]:focus, input[type="number"]:focus {
+        border-color: #5b9bd5;
+        outline: none;
+      }
+
+      /* Button styling */
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      /* Space out sections */
+      .container + .container {
+        margin-top: 20px;
+      }
+
+      /* Input placeholder styling */
+      input::placeholder {
+        color: #999;
+      }
+
+      /* Add a small box shadow on input focus */
+      input[type="text"]:focus, input[type="number"]:focus {
+        box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <!-- Post Data Section -->
+      <div class="container">
+        <h1>Post Data</h1>
+        <input type="text" id="ip1" placeholder="Enter product" />
+        <input type="text" id="ip2" placeholder="Image url" />
+        <input type="text" id="ip3" placeholder="Enter Price" />
+        <input type="text" id="ip4" placeholder="Enter Rating" />
+        <button id="btn1">POST DATA</button>
+      </div>
+
+      <!-- Put Data Section -->
+      <div class="container">
+        <h1>Put Data</h1>
+        <input type="text" id="ip5" placeholder="Mention ID No." />
+        <input type="text" id="ip6" placeholder="Discount" />
+        <input type="text" id="ip7" placeholder="Enter Description" />
+        <button id="btn2">PUT DATA</button>
+      </div>
+
+      <!-- Delete Data Section -->
+      <div class="container">
+        <h1>Delete Data</h1>
+        <input type="number" id="ip8" placeholder="Enter ID No." />
+        <button id="btn3">DELETE DATA</button>
+      </div>
+    </div>
+
+    <script>
+      let category = document.getElementById("ip1");
+      let imge = document.getElementById("ip2");
+      let price = document.getElementById("ip3");
+      let rating = document.getElementById("ip4");
+      let btn1 = document.getElementById("btn1");
+
+      btn1.addEventListener("click", () => {
+        let data1 = category.value;
+        let data2 = imge.value;
+        let data3 = price.value;
+        let data4 = rating.value;
+
+        obj = {
+          category: data1,
+          image: data2,
+          price: data3,
+          rating: data4,
+        };
+        postdata(obj);
+      });
+
+      async function postdata(obj) {
+        let res = await fetch("http://localhost:3000/products/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj),
+        });
+      }
+
+      let mentionid = document.getElementById("ip5");
+      let discount = document.getElementById("ip6");
+      let desc = document.getElementById("ip7");
+      let btn2 = document.getElementById("btn2");
+
+      btn2.addEventListener("click", () => {
+        let data5 = mentionid.value;
+        let data6 = discount.value;
+        let data7 = desc.value;
+
+        obj2 = {
+          id: data5,
+          discount: data6,
+          description: data7,
+        };
+        putdata(obj2);
+      });
+
+      async function putdata(obj2) {
+        let res = await fetch(`http://localhost:3000/products/${obj2.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obj2),
+        });
+      }
+
+      let deid = document.getElementById("ip8");
+      let btn3 = document.getElementById("btn3");
+
+      btn3.addEventListener("click", () => {
+        let data8 = deid.value;
+        if (data8) {
+          obj = {
+            id: data8,
+          };
+
+          deletedata(obj);
+        } else {
+          alert("Fill the input.");
+        }
+      });
+
+      async function deletedata(obj) {
+        let res = await fetch(`http://localhost:3000/products/${obj.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        alert(`ID ${obj.id} is deleted`);
+      }
+    </script>
+  </body>
+</html>

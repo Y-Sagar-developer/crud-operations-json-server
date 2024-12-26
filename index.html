@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Authorizer Selector</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: #e0e5ec;
+      }
+
+      .container {
+        text-align: center;
+        background: #e0e5ec;
+        padding: 30px 20px;
+        border-radius: 20px;
+        box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.2), -7px -7px 15px rgba(255, 255, 255, 0.8);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      select {
+        width: 260px;
+        padding: 12px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #555;
+        border: none;
+        outline: none;
+        border-radius: 25px;
+        background: #e0e5ec;
+        box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.8);
+        appearance: none;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100px;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(145deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 25px;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(145deg, #2575fc, #6a11cb);
+        transform: scale(1.05);
+      }
+
+      button:active {
+        box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.8);
+      }
+
+      select:focus, button:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Choose Authorizer</h1>
+      <select name="" id="author">
+        <option value="">Select Authorizer</option>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+      <button id="btn">Move</button>
+    </div>
+
+    <script>
+      let btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
+        let author = document.getElementById("author").value;
+
+        if (!author) {
+          alert("Please select an authorizer.");
+        } else if (author == "Admin") {
+          window.open("admin.html");
+        } else if (author == "User") {
+          window.open("user.html");
+        }
+      });
+    </script>
+  </body>
+</html>

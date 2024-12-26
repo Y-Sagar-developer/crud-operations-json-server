@@ -1,0 +1,128 @@
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="parent"></div>
+
+    <script>
+      let parent = document.getElementById("parent");
+
+      async function showapidata() {
+        parent.innerHTML = ""; 
+
+        try {
+          let result = await fetch('http://localhost:3000/products');
+
+          if (!result.ok) {
+            throw new Error(`HTTP error! Status: ${result.status}`);
+          }
+
+          let maindata = await result.json();
+
+          if (maindata.length === 0) {
+            parent.innerHTML = "<p>No products found!</p>";
+            return;
+          }
+
+          maindata.forEach((val) => {
+            console.log(val); 
+            let card = document.createElement("div");
+            card.className = "card";
+
+            let category = document.createElement("p");
+            category.innerHTML = `<b>Category : </b> ${val.category}`;
+
+            let image = document.createElement("img");
+            image.src = val.image;
+            image.alt = "Product Image"; 
+            image.style.width = "200px"; 
+
+            let price = document.createElement("p");
+            price.innerHTML = `<b>Price : </b>$ ${val.price}`;
+
+            let rating = document.createElement("p");
+            rating.innerHTML = `<b>Rating : </b> ${val.rating}`;
+
+            card.append(category);
+            card.append(image);
+            card.append(price);
+            card.append(rating);
+
+            parent.append(card);
+          });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          parent.innerHTML = "<p>Failed to load products.</p>";
+        }
+      }
+
+      showapidata(); 
+    </script>
+  </body>
+</html>
+
+ -->
+
+
+
+
+
+
+
+
+<!-- 
+ <!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Document</title>
+   </head>
+   <body>
+     <div id="parent"></div>
+ 
+     <script>
+       let parent = document.getElementById("parent");
+ 
+       async function showapidata() {
+         parent.innerHTML = "";
+         let result = await fetch("http://localhost:3000/products");
+         let maindata = await result.json();
+ 
+         maindata.forEach((val) => {
+ 
+           let div = document.createElement("div");
+           div.className = "card";
+ 
+           let category = document.createElement("p");
+           category.innerHTML = `<b>Category : </b> ${val.category} `;
+ 
+           let image = document.createElement("img");
+           image.src = val.image;
+ 
+           let price = document.createElement("p");
+           price.innerHTML = `<b>Price : </b>$ ${val.price} `;
+           let rating = document.createElement("p");
+           rating.innerHTML = `<b>Rating : </b> ${val.rating} `;
+ 
+           div.append(category);
+           div.append(image);
+           div.append(price);
+           div.append(rating);
+ 
+           parent.append(div);
+         });
+       }
+       showapidata();
+     </script>
+   </body>
+ </html> 
+  
+ -->
